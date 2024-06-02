@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: slideInUp 1s forwards;
+}
+
+.navbar {
+    margin-bottom: 30px;
+    animation: slideInDown 1s forwards;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    animation: fadeIn 1s forwards;
+}
+
+p {
+    animation: slideInLeft 1s forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* Spicy Effects for Images */
+.img-fluid:hover {
+    transform: scale(1.1); /* Increase size on hover */
+    transition: transform 0.3s ease;
+    filter: brightness(90%); /* Slight darkening on hover */
+}
+
+.img-fluid {
+    transition: filter 0.3s ease; /* Smooth transition for brightness */
+}
+/* CSS for Testimonials */
+
+/* CSS */
+.testimonial img {
+    max-width: 200px;
+    border-radius: 50%;
+    filter: blur(5px); /* Initial blur effect */
+    transition: filter 0.3s ease; /* Smooth transition for blur effect */
+}
+
+.testimonial img:hover {
+    filter: none; /* Remove blur effect on hover */
+}
+@media (max-width: 768px) {
+    .testimonial {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .testimonial img {
+        margin-bottom: 20px;
+    }
+
+    .testimonial:nth-child(even) .testimonial-info {
+        order: 1;
+    }
+}
+

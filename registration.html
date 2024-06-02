@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background: url('https://source.unsplash.com/Q1p7bh3SHj8/1600x900') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.6); /* 40% transparent */
+            color: white;
+            width: 25rem;
+            border-radius: 10px;
+            padding: 5rem 2rem;
+            box-shadow: 0px 0px 20px 0px black;
+            border: 1px solid black;
+        }
+        .registration-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .email,
+        .whatsapp {
+            text-align: center;
+            border: 2px solid cyan;
+            margin: 1rem;
+            color: white;
+            background: transparent;
+            padding: 1rem 2rem;
+            border-radius: 3rem;
+            width: 15rem;
+            font-size: 1.2rem;
+            outline: none;
+            transition: all .2s ease-in-out;
+        }
+        .email:focus,
+        .whatsapp:focus {
+            width: 20rem;
+        }
+        .submitBtn {
+            background: transparent;
+            border: 2px solid yellow;
+            padding: 1rem 3rem;
+            border-radius: 6rem;
+            text-decoration: underline;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+            margin-top: 1rem;
+        }
+        .submitBtn:hover {
+            background: green;
+            border: 2px solid cyan;
+        }
+        .message {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="registration-title">Registration</h2>
+        <input type="text" id="email" class="email" placeholder="Email">
+        <input type="text" id="whatsapp" class="whatsapp" placeholder="WhatsApp Number" oninput="restrictToDigits(event)">
+        <button class="submitBtn" onclick="sendOTP()">Send OTP</button>
+        <div class="message" id="message"></div>
+    </div>
+    
+    <script>
+        function sendOTP() {
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const message = document.getElementById('message');
+            const isValidEmail = validateEmail(email);
+            const isValidWhatsApp = validateWhatsApp(whatsapp);
+
+            if (!isValidEmail || !isValidWhatsApp) {
+                message.style.display = 'block';
+                message.innerText = 'Please enter a valid email and WhatsApp number.';
+            } else {
+                // Generate OTP and send it via email and WhatsApp
+                const otp = generateOTP();
+                sendEmail(email, otp);
+                sendWhatsApp(whatsapp, otp);
+
+                message.style.display = 'block';
+                message.style.color = 'green';
+                message.innerText = 'OTP has been sent to your email and WhatsApp.';
+                
+                // Redirect to login page
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 3000);
+            }
+        }
+
+        function validateEmail(email) {
+            // Check if "@" is present in the email
+            return email.includes('@');
+        }
+
+        function validateWhatsApp(whatsapp) {
+            // Check if WhatsApp number contains only numeric characters
+            return /^\d{10}$/.test(whatsapp);
+        }
+
+        function generateOTP() {
+            // Generate a random 6-character OTP
+            const digits = '0123456789';
+            let otp = '';
+            for (let i = 0; i < 6; i++) {
+                otp += digits.charAt(Math.floor(Math.random() * digits.length));
+            }
+            return otp;
+        }
+
+        function sendEmail(email, otp) {
+            // Implement email sending logic here
+            console.log(`Email sent to ${email} with OTP: ${otp}`);
+        }
+
+        function sendWhatsApp(whatsapp, otp) {
+            // Implement WhatsApp message sending logic here
+            console.log(`WhatsApp message sent to ${whatsapp} with OTP: ${otp}`);
+        }
+
+        function restrictToDigits(event) {
+            const input = event.target;
+            input.value = input.value.replace(/\D/g, '').substring(0, 10); // Remove non-numeric characters and limit to 10 digits
+        }
+    </script>
+</body>
+</html>
